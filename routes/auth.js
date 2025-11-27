@@ -1,11 +1,12 @@
 import { hash } from "bcryptjs"
 import { Router } from "express"
-import { authenticate } from "passport"
+import passport from "passport"
+import { createUserGet } from "../controllers/auth.js"
 
 const router = Router()
 
 /* GET sign-up form. */
-// router.get("/sign-up", (_req, res) => res.render("sign-up-form"))
+router.get("/sign-up", createUserGet)
 
 /* POST sign-up form. */
 router.post("/sign-up", async (req, res, next) => {
@@ -26,7 +27,7 @@ router.post("/sign-up", async (req, res, next) => {
 /* POST login authentication. */
 router.post(
 	"/log-in",
-	authenticate("local", {
+	passport.authenticate("local", {
 		successRedirect: "/",
 		failureRedirect: "/",
 	}),

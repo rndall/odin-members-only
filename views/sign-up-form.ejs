@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+  </head>
+
+  <body>
+    <main>
+      <h1>Join the Club</h1>
+      <form action="/sign-up" method="POST">
+        <label for="firstName">First name</label>
+        <input
+          id="firstName"
+          name="firstName"
+          placeholder="Enter your first name"
+          type="text"
+          required
+        />
+        <label for="lastName">Last name</label>
+        <input
+          id="lastName"
+          name="lastName"
+          placeholder="Enter your last name"
+          type="text"
+          required
+        />
+
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          placeholder="Enter your email address"
+          type="email"
+          required
+        />
+
+        <label for="passwordConfirmation">Confirm Password</label>
+        <input
+          id="passwordConfirmation"
+          name="passwordConfirmation"
+          placeholder="Confirm your password"
+          type="password"
+          required
+        />
+
+        <input id="isAdmin" name="isAdmin" type="checkbox" />
+        <label for="isAdmin">I am an administrator</label>
+
+        <button type="submit">Create Account</button>
+      </form>
+
+      <p>Already have an account? <a href="">Sign In</a></p>
+    </main>
+  </body>
+</html>

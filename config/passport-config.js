@@ -1,13 +1,13 @@
 import { compare } from "bcryptjs"
-import { deserializeUser, serializeUser, use } from "passport"
+import passport from "passport"
 import { Strategy as LocalStrategy } from "passport-local"
-import { query } from "../db/pool.js"
+import pool from "../db/pool.js"
 
 export function configurePassport() {
-	use(
+	passport.use(
 		new LocalStrategy(async (username, password, done) => {
 			try {
-				/* Implement user query */
+				/* Implement user pool.query */
 				// const { rows } = await query(
 				// 	"SELECT * FROM users WHERE username = $1",
 				// 	[username],
@@ -29,14 +29,14 @@ export function configurePassport() {
 		}),
 	)
 
-	serializeUser((user, done) => {
+	passport.serializeUser((user, done) => {
 		done(null, user.id)
 	})
 
-	deserializeUser(async (id, done) => {
+	passport.deserializeUser(async (id, done) => {
 		try {
 			/* Implement user query */
-			// const { rows } = await query("SELECT * FROM users WHERE id = $1", [id])
+			// const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id])
 			const user = rows[0]
 
 			done(null, user)

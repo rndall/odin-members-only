@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser"
 import express, { json, static as static_, urlencoded } from "express"
 import createError from "http-errors"
 import logger from "morgan"
-import { session } from "passport"
+import passport from "passport"
 
 import { configurePassport } from "./config/passport-config.js"
 import { sessionMiddleware } from "./config/session.js"
@@ -32,7 +32,7 @@ app.use(static_(join(__dirname, "public")))
 app.use(sessionMiddleware)
 
 configurePassport()
-app.use(session())
+app.use(passport.session())
 
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user
