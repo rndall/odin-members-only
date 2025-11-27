@@ -1,0 +1,37 @@
+{
+	"name": "template-express-passport-local",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"start": "node ./bin/www",
+		"dev": "concurrently \"pnpm run server\" \"pnpm tw\"",
+		"server": "node --watch --env-file=.env ./bin/www",
+		"tw": "pnpm dlx @tailwindcss/cli -i ./public/stylesheets/input.css -o ./public/stylesheets/output.css --watch",
+		"populate": "node db/populate.js",
+		"populate:dev": "node --env-file=.env db/populate.js"
+	},
+	"dependencies": {
+		"@tailwindcss/cli": "^4.1.17",
+		"bcryptjs": "^3.0.3",
+		"connect-pg-simple": "^10.0.0",
+		"cookie-parser": "~1.4.4",
+		"debug": "~2.6.9",
+		"ejs": "~2.6.1",
+		"express": "~5.1.0",
+		"express-session": "^1.18.2",
+		"express-validator": "^7.3.0",
+		"http-errors": "~1.6.3",
+		"install": "^0.13.0",
+		"morgan": "~1.9.1",
+		"passport": "^0.7.0",
+		"passport-local": "^1.0.0",
+		"pg": "^8.16.3",
+		"tailwindcss": "^4.1.17"
+	},
+	"packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
+	"devDependencies": {
+		"@biomejs/biome": "2.3.5",
+		"concurrently": "^9.2.1"
+	}
+}
