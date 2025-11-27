@@ -1,4 +1,4 @@
-# template-express-passport-local
+# odin-members-only
 
 Install dependencies:
 
@@ -9,17 +9,17 @@ $ pnpm install
 On MacOS or Linux, run the app with this command:
 
 ```bash
-$ DEBUG=template-express-passport-local:* pnpm dev/start
+$ DEBUG=odin-members-only:* pnpm dev/start
 ```
 
 On Windows Command Prompt, use this command:
 
 ```bash
-> set DEBUG=template-express-passport-local:* & pnpm dev/start
+> set DEBUG=odin-members-only:* & pnpm dev/start
 ```
 
 On Windows PowerShell, use this command:
 
 ```bash
-PS> $env:DEBUG='template-express-passport-local:*'; pnpm dev/start
+PS> $env:DEBUG='odin-members-only:*'; pnpm dev/start
 ```
