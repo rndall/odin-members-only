@@ -1,5 +1,70 @@
+import { hash } from "bcryptjs"
+import { body, matchedData, validationResult } from "express-validator"
+import db from "../db/queries.js"
+import { formQueryErr, lengthErr } from "../utils/errors.js"
+
+const validateUser = [
+	body("first_name")
+		.trim()
+		.notEmpty()
+		.withMessage("First name is required.")
+		.isLength({ max: 50 })
+		.withMessage(`First name ${lengthErr({ max: 50 })}`),
+	body("last_name")
+		.trim()
+		.notEmpty()
+		.withMessage("Last name is required.")
+		.isLength({ max: 50 })
+		.withMessage(`Last name ${lengthErr({ max: 50 })}`),
+	body("email")
+		.trim()
+		.notEmpty()
+		.withMessage("Email is required.")
+		.isEmail()
+		.withMessage("Invalid email address."),
+	body("password")
+		.trim()
+		.notEmpty()
+		.withMessage("Password is required.")
+		.isLength({ min: 8 })
+		.withMessage(`Password ${lengthErr({ min: 8 })}`),
+	body("password_confirmation")
+		.trim()
+		.notEmpty()
+		.withMessage("Password confirmation is required.")
+		.custom((value, { req }) => value === req.body.password)
+		.withMessage("Passwords do not match."),
+	body("is_admin").toBoolean(),
+]
+
 async function createUserGet(_req, res) {
 	res.render("sign-up-form")
 }
 
-export { createUserGet }
+const createUserPost = [
+	validateUser,
+	async (req, res) => {
+		const errors = validationResult(req)
+		if (!errors.isEmpty()) {
+			console.error(errors.array())
+			return res
+				.status(400)
+				.render("sign-up-form", { errors: errors.array(), user: req.body })
+		}
+
+		const { password, ...rest } = matchedData(req)
+
+		try {
+			const password_hash = await hash(password, 10)
+			await db.insertUser({ ...rest, password_hash })
+			res.redirect("/")
+		} catch (err) {
+			console.error(err)
+			// next(err)
+			const errors = [formQueryErr(err)]
+			return res.status(400).render("sign-up-form", { errors, user: req.body })
+		}
+	},
+]
+
+export { createUserGet, createUserPost }

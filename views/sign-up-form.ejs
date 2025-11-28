@@ -10,22 +10,26 @@
     <main>
       <h1>Join the Club</h1>
       <form action="/sign-up" method="POST">
-        <label for="firstName">First name</label>
+        <label for="first_name">First name</label>
         <input
-          id="firstName"
-          name="firstName"
+          id="first_name"
+          name="first_name"
           placeholder="Enter your first name"
           type="text"
+          value="<%= locals.user?.first_name ?? "" %>"
           required
         />
-        <label for="lastName">Last name</label>
+        <%- include("partials/error.ejs", { field: "first_name" }) %>
+        <label for="last_name">Last name</label>
         <input
-          id="lastName"
-          name="lastName"
+          id="last_name"
+          name="last_name"
           placeholder="Enter your last name"
           type="text"
+          value="<%= locals.user?.last_name ?? "" %>"
           required
         />
+        <%- include("partials/error.ejs", { field: "last_name" }) %>
 
         <label for="email">Email</label>
         <input
@@ -33,20 +37,40 @@
           name="email"
           placeholder="Enter your email address"
           type="email"
+          value="<%= locals.user?.email ?? "" %>"
           required
         />
+        <%- include("partials/error.ejs", { field: "email" }) %>
 
-        <label for="passwordConfirmation">Confirm Password</label>
+        <label for="password">Password</label>
         <input
-          id="passwordConfirmation"
-          name="passwordConfirmation"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          type="password"
+          required
+        />
+        <p>Minimum 8 characters.</p>
+        <%- include("partials/error.ejs", { field: "password" }) %>
+
+        <label for="password_confirmation">Confirm Password</label>
+        <input
+          id="password_confirmation"
+          name="password_confirmation"
           placeholder="Confirm your password"
           type="password"
           required
         />
+        <%- include("partials/error.ejs", { field: "password_confirmation" }) %>
 
-        <input id="isAdmin" name="isAdmin" type="checkbox" />
-        <label for="isAdmin">I am an administrator</label>
+        <input
+          id="is_admin"
+          name="is_admin"
+          type="checkbox"
+          <%= locals.user?.is_admin ? "checked" : "" %>
+        />
+        <label for="is_admin">I am an administrator</label>
+        <%- include("partials/error.ejs", { field: "is_admin" }) %>
 
         <button type="submit">Create Account</button>
       </form>

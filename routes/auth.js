@@ -1,7 +1,6 @@
-import { hash } from "bcryptjs"
 import { Router } from "express"
 import passport from "passport"
-import { createUserGet } from "../controllers/auth.js"
+import { createUserGet, createUserPost } from "../controllers/auth.js"
 
 const router = Router()
 
@@ -9,20 +8,7 @@ const router = Router()
 router.get("/sign-up", createUserGet)
 
 /* POST sign-up form. */
-router.post("/sign-up", async (req, res, next) => {
-	try {
-		const hashedPassword = await hash(req.body.password, 10)
-		/* Implement user query */
-		// await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
-		// 	req.body.username,
-		// 	hashedPassword,
-		// ])
-		res.redirect("/")
-	} catch (err) {
-		console.error(err)
-		next(err)
-	}
-})
+router.post("/sign-up", createUserPost)
 
 /* POST login authentication. */
 router.post(
