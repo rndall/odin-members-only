@@ -1,10 +1,9 @@
 import { Router } from "express"
+import { getIndex } from "../controllers/index.js"
 
 const router = Router()
 
 /* GET home page. */
-router.get("/", (_req, res, _next) => {
-	res.render("index", { title: "Express" })
-})
+router.get("/", getIndex)
 
 export default router

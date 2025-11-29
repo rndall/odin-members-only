@@ -1,0 +1,21 @@
+<header
+  class="flex justify-between items-center mb-12 border-b-2 border-b-dark px-4 sm:px-6 py-3<%= locals.class %>"
+>
+  <div class="flex gap-3 items-center">
+    <%- icon %>
+    <h1 class="hidden sm:block font-bold text-xl"><%= title %></h1>
+  </div>
+
+  <div class="flex gap-4 items-center">
+    <a
+      class="bg-dark rounded-xl font-bold px-6 py-3 shadow-sm"
+      href="/login"
+      >Login</a
+    >
+    <a
+      class="bg-cta rounded-xl font-bold px-6 py-3 shadow-sm"
+      href="/sign-up"
+      >Sign Up</a
+    >
+  </div>
+</header>

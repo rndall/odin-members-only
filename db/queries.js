@@ -9,9 +9,9 @@ async function insertUser({
 }) {
 	await pool.query(
 		`
-    INSERT INTO "user" (first_name, last_name, email, password_hash, is_admin)
-      VALUES ($1, $2, $3, $4, $5)
-  `,
+      INSERT INTO "user" (first_name, last_name, email, password_hash, is_admin)
+        VALUES ($1, $2, $3, $4, $5)
+    `,
 		[first_name, last_name, email, password_hash, is_admin],
 	)
 }
@@ -30,4 +30,19 @@ async function getUserByEmail(email) {
 	return rows[0] || null
 }
 
-export default { insertUser, getUserById, getUserByEmail }
+async function getAllMessages() {
+	const { rows } = await pool.query(
+		`
+		  SELECT m.*,
+				u.first_name,
+				u.last_name
+			FROM message AS m
+			JOIN "user" AS u
+			  ON m.user_id = u.id
+		`,
+	)
+
+	return rows
+}
+
+export default { insertUser, getUserById, getUserByEmail, getAllMessages }

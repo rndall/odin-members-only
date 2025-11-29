@@ -44,6 +44,9 @@ importers:
       install:
         specifier: ^0.13.0
         version: 0.13.0
+      lucide-static:
+        specifier: ^0.555.0
+        version: 0.555.0
       morgan:
         specifier: ~1.9.1
         version: 1.9.1
@@ -669,6 +672,9 @@ packages:
 
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
+  lucide-static@0.555.0:
+    resolution: {integrity: sha512-FMMaYYsEYsUA6xlEzIMoKEV3oGnxIIvAN+AtLmYXvlTJptJTveJjVBQwvtA/zZLrD6KLEu89G95dQYlhivw5jQ==}
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
@@ -1533,6 +1539,8 @@ snapshots:
       lightningcss-win32-x64-msvc: 1.30.2
 
   lodash@4.17.21: {}
+
+  lucide-static@0.555.0: {}
 
   magic-string@0.30.21:
     dependencies:
