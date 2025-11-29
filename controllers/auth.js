@@ -57,7 +57,6 @@ const createUserPost = [
 	async (req, res) => {
 		const errors = validationResult(req)
 		if (!errors.isEmpty()) {
-			console.error(errors.array())
 			return res
 				.status(400)
 				.render("sign-up-form", { errors: errors.array(), user: req.body })
@@ -70,7 +69,6 @@ const createUserPost = [
 			await db.insertUser({ ...rest, password_hash })
 			res.redirect("/")
 		} catch (err) {
-			console.error(err)
 			// next(err)
 			const errors = [formQueryErr(err)]
 			return res.status(400).render("sign-up-form", { errors, user: req.body })
