@@ -1,32 +1,30 @@
 import { compare } from "bcryptjs"
 import passport from "passport"
 import { Strategy as LocalStrategy } from "passport-local"
-import pool from "../db/pool.js"
+import db from "../db/queries.js"
 
 export function configurePassport() {
 	passport.use(
-		new LocalStrategy(async (username, password, done) => {
-			try {
-				/* Implement user pool.query */
-				// const { rows } = await query(
-				// 	"SELECT * FROM users WHERE username = $1",
-				// 	[username],
-				// )
-				const user = rows[0]
+		new LocalStrategy(
+			{ usernameField: "email" },
+			async (email, password, done) => {
+				try {
+					const user = await db.getUserByEmail(email)
 
-				if (!user) {
-					return done(null, false, { message: "Incorrect username" })
-				}
+					if (!user) {
+						return done(null, false, { message: "Incorrect email" })
+					}
 
-				const match = await compare(password, user.password)
-				if (!match) {
-					return done(null, false, { message: "Incorrect password" })
+					const match = await compare(password, user.password_hash)
+					if (!match) {
+						return done(null, false, { message: "Incorrect password" })
+					}
+					return done(null, user)
+				} catch (err) {
+					return done(err)
 				}
-				return done(null, user)
-			} catch (err) {
-				return done(err)
-			}
-		}),
+			},
+		),
 	)
 
 	passport.serializeUser((user, done) => {
@@ -35,9 +33,7 @@ export function configurePassport() {
 
 	passport.deserializeUser(async (id, done) => {
 		try {
-			/* Implement user query */
-			// const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id])
-			const user = rows[0]
+			const user = await db.getUserById(Number(id))
 
 			done(null, user)
 		} catch (err) {

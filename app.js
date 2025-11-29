@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
+import flash from "connect-flash"
 import cookieParser from "cookie-parser"
 import express, { json, static as static_, urlencoded } from "express"
 import createError from "http-errors"
@@ -33,9 +34,11 @@ app.use(sessionMiddleware)
 
 configurePassport()
 app.use(passport.session())
+app.use(flash())
 
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user
+	res.locals.errors = req.flash("error")
 	next()
 })
 

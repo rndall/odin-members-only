@@ -1,9 +1,10 @@
 import { hash } from "bcryptjs"
 import { body, matchedData, validationResult } from "express-validator"
+import passport from "passport"
 import db from "../db/queries.js"
 import { formQueryErr, lengthErr } from "../utils/errors.js"
 
-const validateUser = [
+const validateSignUp = [
 	body("first_name")
 		.trim()
 		.notEmpty()
@@ -37,12 +38,22 @@ const validateUser = [
 	body("is_admin").toBoolean(),
 ]
 
+const validateLogin = [
+	body("email")
+		.trim()
+		.notEmpty()
+		.withMessage("Email is required.")
+		.isEmail()
+		.withMessage("Invalid email address."),
+	body("password").trim().notEmpty().withMessage("Password is required."),
+]
+
 async function createUserGet(_req, res) {
 	res.render("sign-up-form")
 }
 
 const createUserPost = [
-	validateUser,
+	validateSignUp,
 	async (req, res) => {
 		const errors = validationResult(req)
 		if (!errors.isEmpty()) {
@@ -67,4 +78,17 @@ const createUserPost = [
 	},
 ]
 
-export { createUserGet, createUserPost }
+async function loginGet(_req, res) {
+	res.render("login-form")
+}
+
+const loginPost = [
+	validateLogin,
+	passport.authenticate("local", {
+		successRedirect: "/",
+		failureRedirect: "/login",
+		failureFlash: true,
+	}),
+]
+
+export { createUserGet, createUserPost, loginGet, loginPost }

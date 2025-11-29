@@ -1,6 +1,10 @@
 import { Router } from "express"
-import passport from "passport"
-import { createUserGet, createUserPost } from "../controllers/auth.js"
+import {
+	createUserGet,
+	createUserPost,
+	loginGet,
+	loginPost,
+} from "../controllers/auth.js"
 
 const router = Router()
 
@@ -10,14 +14,11 @@ router.get("/sign-up", createUserGet)
 /* POST sign-up form. */
 router.post("/sign-up", createUserPost)
 
+/* GET login form. */
+router.get("/login", loginGet)
+
 /* POST login authentication. */
-router.post(
-	"/log-in",
-	passport.authenticate("local", {
-		successRedirect: "/",
-		failureRedirect: "/",
-	}),
-)
+router.post("/login", loginPost)
 
 /* GET logout user. */
 router.get("/log-out", (req, res, next) => {

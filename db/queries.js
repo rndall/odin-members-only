@@ -16,4 +16,18 @@ async function insertUser({
 	)
 }
 
-export default { insertUser }
+async function getUserById(id) {
+	const { rows } = await pool.query('SELECT * FROM "user" WHERE id = $1', [id])
+
+	return rows[0] || null
+}
+
+async function getUserByEmail(email) {
+	const { rows } = await pool.query('SELECT * FROM "user" WHERE email = $1', [
+		email,
+	])
+
+	return rows[0] || null
+}
+
+export default { insertUser, getUserById, getUserByEmail }
