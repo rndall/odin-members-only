@@ -4,8 +4,8 @@ import {
 	createMessagePost,
 	getIndex,
 } from "../controllers/index.js"
-import { requireAuth } from "../middleware/auth.js"
-import { setFormIcon } from "../middleware/index.js"
+import { requireAuth } from "../middlewares/auth.js"
+import { setFormIcon } from "../middlewares/index.js"
 
 const router = Router()
 

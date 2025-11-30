@@ -6,7 +6,7 @@ import {
 	loginPost,
 	logout,
 } from "../controllers/auth.js"
-import { guestOnly } from "../middleware/auth.js"
+import { guestOnly } from "../middlewares/auth.js"
 
 const router = Router()
 

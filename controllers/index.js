@@ -1,18 +1,8 @@
 import { formatDistanceToNow } from "date-fns"
-import { body, matchedData, validationResult } from "express-validator"
+import { matchedData, validationResult } from "express-validator"
 import db from "../db/queries.js"
 import CustomNotFoundError from "../errors/CustomNotFoundError.js"
-import { lengthErr } from "../utils/errors.js"
-
-const validateMessage = [
-	body("title")
-		.trim()
-		.notEmpty()
-		.withMessage("Title is required.")
-		.isLength({ max: 255 })
-		.withMessage(`Title ${lengthErr({ max: 50 })}`),
-	body("content").trim().notEmpty().withMessage("Message content is required."),
-]
+import { validateMessage } from "../middlewares/index.js"
 
 async function getIndex(_req, res, next) {
 	try {
