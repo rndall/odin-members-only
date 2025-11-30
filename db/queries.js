@@ -45,4 +45,17 @@ async function getAllMessages() {
 	return rows
 }
 
-export default { insertUser, getUserById, getUserByEmail, getAllMessages }
+async function insertMessage(userId, { title, content }) {
+	await pool.query(
+		"INSERT INTO message (user_id, title, content) VALUES ($1, $2, $3)",
+		[userId, title, content],
+	)
+}
+
+export default {
+	insertUser,
+	getUserById,
+	getUserByEmail,
+	getAllMessages,
+	insertMessage,
+}
