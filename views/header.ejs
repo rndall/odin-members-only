@@ -1,5 +1,5 @@
 <header
-  class="flex justify-between items-center mb-12 border-b-2 border-b-dark px-4 sm:px-6 py-3<%= locals.class %>"
+  class="sticky inset-x-0 top-0 bg-bg flex justify-between items-center border-b-2 border-b-dark px-4 sm:px-6 py-3 min-h-[74px]<%= locals.class %>"
 >
   <a class="flex gap-3 items-center p-0" href="/">
     <%- icon %>
@@ -18,7 +18,9 @@
         href="/sign-up"
         >Sign Up</a
       >
-    <% } else { %>
+    <% } else if (currentUser.is_member) { %>
+      <p class="text-gray">Member</p>
+    <% } else if (currentPath !== "/join") { %>
       <a
         class="bg-cta"
         href="/join"

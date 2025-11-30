@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/output.css" />
+    <title>Join the Club</title>
+  </head>
+
+  <body class="min-h-dvh flex flex-col">
+    <%- include("header") %>
+
+    <main class="flex-1 flex items-center justify-center container mx-auto px-4 -mt-20">
+      <div class="space-y-8 max-w-130 text-center shadow-lg bg-dark rounded-xl p-8">
+        <div class="space-y-2 max-w-110 mx-auto">
+          <h2 class="font-bold text-3xl">The Inner Circle Awaits<h2>
+          <p>Enter the secret passcode to unlock your full membership.</p>
+        </div>
+
+        <form class="flex flex-col gap-5 text-start" action="/join" method="POST">
+          <div class="flex flex-col gap-2">
+            <label for="passcode">Passcode</label>
+            <input
+              class="border-2 border-light/20 bg-bg/80 rounded-md shadow-sm py-4 px-4"
+              type="password"
+              id="passcode"
+              name="passcode"
+              placeholder="••••••••••••"
+              required
+            />
+            <%- include("partials/error", { field: "passcode" }) %>
+          </div>
+
+          <button type="submit" class="bg-cta">Grant Access</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

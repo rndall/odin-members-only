@@ -40,6 +40,7 @@ app.use(flash())
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user
 	res.locals.errors = req.flash("error")
+	res.locals.currentPath = req.path
 
 	const icon = MessageCircle.replace('stroke-width="2"', 'stroke-width="2.5"')
 	res.locals.icon = icon

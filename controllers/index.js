@@ -2,7 +2,10 @@ import { formatDistanceToNow } from "date-fns"
 import { matchedData, validationResult } from "express-validator"
 import db from "../db/queries.js"
 import CustomNotFoundError from "../errors/CustomNotFoundError.js"
-import { validateMessage } from "../middlewares/index.js"
+import {
+	validateMessage,
+	validateSecretPasscode,
+} from "../middlewares/index.js"
 
 async function getIndex(_req, res, next) {
 	try {
@@ -56,4 +59,34 @@ const createMessagePost = [
 	},
 ]
 
-export { getIndex, createMessageGet, createMessagePost }
+function getJoin(_req, res) {
+	console.log(res.locals.currentPath)
+	res.render("join")
+}
+
+const postJoin = [
+	validateSecretPasscode,
+	async (req, res) => {
+		const userId = req.user?.id
+
+		if (!userId) {
+			throw new CustomNotFoundError("User not found!")
+		}
+
+		const errors = validationResult(req)
+		if (!errors.isEmpty()) {
+			return res.status(400).render("join", {
+				errors: errors.array(),
+			})
+		}
+
+		try {
+			await db.setMember(userId)
+			res.redirect("/")
+		} catch (err) {
+			next(err)
+		}
+	},
+]
+
+export { getIndex, createMessageGet, createMessagePost, getJoin, postJoin }

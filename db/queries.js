@@ -52,10 +52,15 @@ async function insertMessage(userId, { title, content }) {
 	)
 }
 
+async function setMember(userId) {
+	await pool.query('UPDATE "user" SET is_member = true WHERE id = $1', [userId])
+}
+
 export default {
 	insertUser,
 	getUserById,
 	getUserByEmail,
 	getAllMessages,
 	insertMessage,
+	setMember,
 }

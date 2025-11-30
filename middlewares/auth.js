@@ -53,4 +53,10 @@ function guestOnly(req, res, next) {
 	return req.isAuthenticated() ? res.redirect("/") : next()
 }
 
-export { validateSignUp, validateLogin, requireAuth, guestOnly }
+function nonMembersOnly(req, res, next) {
+	return req.isAuthenticated() && req.user.is_member
+		? res.redirect("/")
+		: next()
+}
+
+export { validateSignUp, validateLogin, requireAuth, guestOnly, nonMembersOnly }
