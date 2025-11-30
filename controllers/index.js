@@ -1,3 +1,4 @@
+import { formatDistanceToNow } from "date-fns"
 import { EyeOff } from "lucide-static"
 import db from "../db/queries.js"
 import CustomNotFoundError from "../errors/CustomNotFoundError.js"
@@ -9,7 +10,14 @@ async function getIndex(_req, res) {
 		throw new CustomNotFoundError("Messages not found!")
 	}
 
-	res.render("index", { title: "The Clubhouse", messages })
+	const mappedMessages = messages.map((message) => ({
+		...message,
+		distanceToNow: formatDistanceToNow(new Date(message.created_at), {
+			addSuffix: true,
+		}),
+	}))
+
+	res.render("index", { title: "The Clubhouse", messages: mappedMessages })
 }
 
 async function createMessageGet(req, res) {

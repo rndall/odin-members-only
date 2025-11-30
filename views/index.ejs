@@ -10,13 +10,21 @@
   <body class="min-h-screen relative">
     <%- include("header") %>
 
-    <main class="container mx-auto px-4">
+    <main class="container mx-auto px-4 space-y-6">
       <h2 class="font-bold text-3xl">Clubhouse Feed</h2>
 
       <div>
-        <ul>
-          <% messages.forEach((message) => { %>
-            <%- include("messages/message", { message }) %>
+        <ul class="border-2 border-dark rounded-lg">
+          <% messages.forEach((message, index) => { %>
+            <%-
+              include("messages/message",
+              {
+                message,
+                class: messages.length - 1 === index ?
+                "" :
+                " border-b-2 border-b-dark"
+              })
+            %>
           <% }) %>
         </ul>
       </div>

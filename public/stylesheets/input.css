@@ -3,6 +3,14 @@
 @theme {
   --color-cta: var(--color-blue-800);
   --color-dark: var(--color-gray-800);
+  --color-gray: var(--color-gray-400);
+  --color-light: var(--color-gray-50);
+}
+
+@layer components {
+  .card {
+    @apply p-4;
+  }
 }
 
 @layer base {
