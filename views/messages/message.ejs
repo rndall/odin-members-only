@@ -1,7 +1,7 @@
 <li class="space-y-3 card<%= locals.class %>">
   <h3 class="font-bold text-2xl"><%= message.title %></h3>
   <p class="flex gap-3 text-gray">
-    <% if (locals.currentUser) { %>
+    <% if (locals.currentUser?.is_member) { %>
     <span class="italic text-light">
       <%= message.first_name %> <%= message.last_name %>
     </span>
