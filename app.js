@@ -8,6 +8,7 @@ import flash from "connect-flash"
 import cookieParser from "cookie-parser"
 import express, { json, static as static_, urlencoded } from "express"
 import createError from "http-errors"
+import { MessageCircle } from "lucide-static"
 import logger from "morgan"
 import passport from "passport"
 
@@ -39,6 +40,9 @@ app.use(flash())
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user
 	res.locals.errors = req.flash("error")
+
+	const icon = MessageCircle.replace('stroke-width="2"', 'stroke-width="2.5"')
+	res.locals.icon = icon
 	next()
 })
 

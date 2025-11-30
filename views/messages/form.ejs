@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/output.css" />
+    <title>New Message</title>
+  </head>
+
+  <body>
+    <%- include("../header") %>
+
+    <main class="container mx-auto px-4 space-y-8">
+      <h2 class="font-bold text-3xl">Share Your Thoughts<h2>
+
+      <form class="flex flex-col gap-5" action="/new" method="POST">
+        <div class="flex flex-col gap-2">
+          <label for="title">Title</label>
+          <input
+            class="border-2 border-dark rounded-md shadow-sm py-2 px-4"
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Enter a compelling title..."
+            value="<%= locals.message?.title ?? "" %>"
+            required
+          />
+          <%- include("../partials/error", { field: "title" }) %>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="content">Your Message</label>
+          <textarea
+            class="border-2 border-dark rounded-md shadow-sm py-2 px-4"
+            id="content"
+            name="content"
+            placeholder="What's on your mind?..."
+            rows="7"
+            required
+          ><%= locals.message?.content ?? "" %></textarea>
+          <%- include("../partials/error", { field: "content" }) %>
+        </div>
+
+        <div class="flex items-center gap-2 text-gray-400">
+          <i class="shrink-0"><%- formIcon %></i>
+          <p>
+            Your post will be anonymous to the public. Fellow members will see
+            your identity.
+          </p>
+        </div>
+
+        <hr class="border-t-dark border-t-2" />
+
+        <button type="submit" class="bg-cta sm:ml-auto">Post</button>
+      </form>
+    </main>
+  </body>
+</html>
