@@ -6,8 +6,14 @@ import {
 	loginPost,
 	logout,
 } from "../controllers/auth.js"
+import { guestOnly } from "../middleware/auth.js"
 
 const router = Router()
+
+/* GET logout user. */
+router.get("/log-out", logout)
+
+router.use(guestOnly)
 
 /* GET sign-up form. */
 router.get("/sign-up", createUserGet)
@@ -20,8 +26,5 @@ router.get("/login", loginGet)
 
 /* POST login authentication. */
 router.post("/login", loginPost)
-
-/* GET logout user. */
-router.get("/log-out", logout)
 
 export default router

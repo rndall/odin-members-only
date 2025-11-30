@@ -1,6 +1,5 @@
 import { formatDistanceToNow } from "date-fns"
 import { body, matchedData, validationResult } from "express-validator"
-import { EyeOff } from "lucide-static"
 import db from "../db/queries.js"
 import CustomNotFoundError from "../errors/CustomNotFoundError.js"
 import { lengthErr } from "../utils/errors.js"
@@ -36,25 +35,11 @@ async function getIndex(_req, res, next) {
 	}
 }
 
-function setFormIcon(_req, res, next) {
-	res.locals.formIcon = EyeOff
-	next()
+function createMessageGet(_req, res) {
+	res.render("messages/form")
 }
 
-const createMessageGet = [
-	setFormIcon,
-	(_req, res) => {
-		console.log(res.locals.formIcon)
-		if (!res.locals.currentUser) {
-			return res.redirect("/login")
-		}
-
-		res.render("messages/form")
-	},
-]
-
 const createMessagePost = [
-	setFormIcon,
 	validateMessage,
 	async (req, res, next) => {
 		const userId = req.user?.id
