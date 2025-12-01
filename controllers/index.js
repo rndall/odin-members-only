@@ -60,7 +60,6 @@ const createMessagePost = [
 ]
 
 function getJoin(_req, res) {
-	console.log(res.locals.currentPath)
 	res.render("join")
 }
 

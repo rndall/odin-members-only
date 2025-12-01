@@ -23,8 +23,13 @@ const createUserPost = [
 
 		try {
 			const password_hash = await hash(password, 10)
-			await db.insertUser({ ...rest, password_hash })
-			res.redirect("/")
+			const newUser = await db.insertUser({ ...rest, password_hash })
+			req.login(newUser, (err) => {
+				if (err) {
+					return next(err)
+				}
+				res.redirect("/")
+			})
 		} catch (err) {
 			// next(err)
 			const errors = [formQueryErr(err)]

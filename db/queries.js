@@ -7,13 +7,16 @@ async function insertUser({
 	password_hash,
 	is_admin,
 }) {
-	await pool.query(
+	const { rows } = await pool.query(
 		`
-      INSERT INTO "user" (first_name, last_name, email, password_hash, is_admin)
-        VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO "user" (first_name, last_name, email, password_hash, is_member, is_admin)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING *
     `,
-		[first_name, last_name, email, password_hash, is_admin],
+		[first_name, last_name, email, password_hash, is_admin, is_admin],
 	)
+
+	return rows[0]
 }
 
 async function getUserById(id) {
