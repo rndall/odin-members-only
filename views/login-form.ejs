@@ -27,6 +27,7 @@
               name="email"
               placeholder="you@example.com"
               value="<%= locals.user?.email ?? "" %>"
+              autofocus
               required
             />
             <%- include("partials/error", { field: "email" }) %>

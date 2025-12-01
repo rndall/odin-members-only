@@ -23,6 +23,7 @@
             name="title"
             placeholder="Enter a compelling title..."
             value="<%= locals.message?.title ?? "" %>"
+            autofocus
             required
           />
           <%- include("../partials/error", { field: "title" }) %>

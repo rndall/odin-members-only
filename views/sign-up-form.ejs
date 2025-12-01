@@ -29,6 +29,7 @@
                 name="first_name"
                 placeholder="Enter your first name"
                 value="<%= locals.user?.first_name ?? "" %>"
+                autofocus
                 required
               />
               <%- include("partials/error", { field: "first_name" }) %>
