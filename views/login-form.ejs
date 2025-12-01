@@ -3,40 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/output.css" />
     <title>Login</title>
   </head>
 
-  <body>
-    <main>
-      <h1>Welcome Back</h1>
-      <p>Enter the clubhouse to join the conversation</p>
+  <body class="min-h-dvh flex flex-col">
+    <%- include("header") %>
 
-      <form action="/login" method="POST">
-        <label for="email">Email Address</label>
-        <input
-          id="email"
-          name="email"
-          placeholder="you@example.com"
-          type="email"
-          value="<%= locals.user?.email ?? "" %>"
-          required
-        />
-        <%- include("partials/error.ejs", { field: "email" }) %>
+    <main class="flex-1 flex items-center justify-center container mx-auto px-4 -mt-20">
+      <div class="flex-1 space-y-8 max-w-110 text-center shadow-lg bg-dark rounded-xl p-8">
+        <div class="space-y-2 max-w-110 mx-auto">
+          <h2 class="font-bold text-3xl">Welcome Back<h2>
+          <p>Enter the clubhouse to join the conversation</p>
+        </div>
 
-        <label for="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          placeholder="Enter your password"
-          type="password"
-          required
-        />
-        <%- include("partials/error.ejs", { field: "password" }) %>
+        <form class="flex flex-col gap-3 text-start" action="/login" method="POST">
+          <div class="flex flex-col gap-2">
+            <label for="email">Email</label>
+            <input
+              class="border-2 border-light/20 bg-bg/80 rounded-md shadow-sm py-2 px-4"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              value="<%= locals.user?.email ?? "" %>"
+              required
+            />
+            <%- include("partials/error", { field: "email" }) %>
+          </div>
 
-        <%- include("partials/error.ejs") %>
+          <div class="flex flex-col gap-2">
+            <label for="password">Password</label>
+            <input
+              class="border-2 border-light/20 bg-bg/80 rounded-md shadow-sm py-2 px-4"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+            <%- include("partials/error", { field: "password" }) %>
+          </div>
 
-        <button type="submit">Log In</button>
-      </form>
+          <%- include("partials/error") %>
+
+          <button type="submit" class="bg-cta">Log In</button>
+        </form>
+      </div>
     </main>
   </body>
 </html>

@@ -3,79 +3,108 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/output.css" />
     <title>Sign Up</title>
   </head>
 
-  <body>
-    <main>
-      <h1>Join the Club</h1>
-      <form action="/sign-up" method="POST">
-        <label for="first_name">First name</label>
-        <input
-          id="first_name"
-          name="first_name"
-          placeholder="Enter your first name"
-          type="text"
-          value="<%= locals.user?.first_name ?? "" %>"
-          required
-        />
-        <%- include("partials/error.ejs", { field: "first_name" }) %>
-        <label for="last_name">Last name</label>
-        <input
-          id="last_name"
-          name="last_name"
-          placeholder="Enter your last name"
-          type="text"
-          value="<%= locals.user?.last_name ?? "" %>"
-          required
-        />
-        <%- include("partials/error.ejs", { field: "last_name" }) %>
+  <body class="min-h-dvh flex flex-col">
+    <%- include("header") %>
 
-        <label for="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          placeholder="Enter your email address"
-          type="email"
-          value="<%= locals.user?.email ?? "" %>"
-          required
-        />
-        <%- include("partials/error.ejs", { field: "email" }) %>
+    <main class="flex-1 flex items-center justify-center container mx-auto px-4">
+      <div
+        class="flex-1 space-y-8 max-w-130 text-center shadow-lg bg-dark rounded-xl p-8 my-8"
+      >
+        <div class="space-y-2 max-w-110 mx-auto">
+          <h2 class="font-bold text-3xl">Register<h2>
+        </div>
 
-        <label for="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          placeholder="Enter your password"
-          type="password"
-          required
-        />
-        <p>Minimum 8 characters.</p>
-        <%- include("partials/error.ejs", { field: "password" }) %>
+        <form class="flex flex-col gap-3 text-start" action="/sign-up" method="POST">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <div class="flex-1 flex flex-col gap-2">
+              <label for="first_name">First name</label>
+              <input
+                class="border-2 border-light/20 bg-bg/80 rounded-md shadow-sm py-2 px-4"
+                type="text"
+                id="first_name"
+                name="first_name"
+                placeholder="Enter your first name"
+                value="<%= locals.user?.first_name ?? "" %>"
+                required
+              />
+              <%- include("partials/error", { field: "first_name" }) %>
+            </div>
 
-        <label for="password_confirmation">Confirm Password</label>
-        <input
-          id="password_confirmation"
-          name="password_confirmation"
-          placeholder="Confirm your password"
-          type="password"
-          required
-        />
-        <%- include("partials/error.ejs", { field: "password_confirmation" }) %>
+            <div class="flex-1 flex flex-col gap-2">
+              <label for="last_name">Last name</label>
+              <input
+                class="border-2 border-light/20 bg-bg/80 rounded-md shadow-sm py-2 px-4"
+                type="text"
+                id="last_name"
+                name="last_name"
+                placeholder="Enter your last name"
+                value="<%= locals.user?.last_name ?? "" %>"
+                required
+              />
+              <%- include("partials/error", { field: "last_name" }) %>
+            </div>
+          </div>
 
-        <input
-          id="is_admin"
-          name="is_admin"
-          type="checkbox"
-          <%= locals.user?.is_admin ? "checked" : "" %>
-        />
-        <label for="is_admin">I am an administrator</label>
-        <%- include("partials/error.ejs", { field: "is_admin" }) %>
+          <div class="flex flex-col gap-2">
+            <label for="email">Email</label>
+            <input
+              class="border-2 border-light/20 bg-bg/80 rounded-md shadow-sm py-2 px-4"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              value="<%= locals.user?.email ?? "" %>"
+              required
+            />
+            <%- include("partials/error", { field: "email" }) %>
+          </div>
 
-        <button type="submit">Create Account</button>
-      </form>
+          <div class="flex flex-col gap-2">
+            <label for="password">Password</label>
+            <input
+              class="border-2 border-light/20 bg-bg/80 rounded-md shadow-sm py-2 px-4"
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+            <p>Minimum 8 characters.</p>
+            <%- include("partials/error", { field: "password" }) %>
+          </div>
 
-      <p>Already have an account? <a href="/login">Sign In</a></p>
+          <div class="flex flex-col gap-2">
+            <label for="password_confirmation">Confirm Password</label>
+            <input
+              class="border-2 border-light/20 bg-bg/80 rounded-md shadow-sm py-2 px-4"
+              type="password"
+              id="password_confirmation"
+              name="password_confirmation"
+              placeholder="Confirm your password"
+              required
+            />
+            <%- include("partials/error", { field: "password_confirmation" }) %>
+          </div>
+
+          <div class="flex gap-2 items-center">
+            <input
+              class="w-4 h-4 accent-cta border border-light/20 rounded-full focus:ring-2 focus:ring-cta"
+              id="is_admin"
+              name="is_admin"
+              type="checkbox"
+              <%= locals.user?.is_admin ? "checked" : "" %>
+            />
+            <label for="is_admin">I am an administrator</label>
+            <%- include("partials/error", { field: "is_admin" }) %>
+          </div>
+
+          <button type="submit" class="bg-cta mt-2">Create Account</button>
+        </form>
+      </div>
     </main>
   </body>
 </html>
