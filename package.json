@@ -11,7 +11,7 @@
 		"populate": "node db/populatedb.js",
 		"populate:dev": "node --env-file=.env db/populatedb.js",
 
-		"build": "pnpm install && pnpm run build:styles",
+		"build": "pnpm install && pnpm run build:styles && pnpm run populate",
 		"build:styles": "pnpm dlx @tailwindcss/cli -i ./public/stylesheets/input.css -o ./public/stylesheets/output.css --minify"
 	},
 	"dependencies": {
