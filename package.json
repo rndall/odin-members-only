@@ -4,16 +4,15 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"start": "node ./bin/www",
+		"start": "NODE_ENV=production node ./bin/www",
 		"dev": "concurrently \"pnpm run server\" \"pnpm tw\"",
 		"server": "node --watch --env-file=.env ./bin/www",
 		"tw": "pnpm dlx @tailwindcss/cli -i ./public/stylesheets/input.css -o ./public/stylesheets/output.css --watch",
 		"populate": "node db/populatedb.js",
 		"populate:dev": "node --env-file=.env db/populatedb.js",
 
-		"build": "pnpm install && pnpm run build:styles && pnpm run build:server",
-		"build:styles": "pnpm dlx @tailwindcss/cli -i ./public/stylesheets/input.css -o ./public/stylesheets/output.css --minify",
-		"build:server": "NODE_ENV=production node ./bin/www"
+		"build": "pnpm install && pnpm run build:styles",
+		"build:styles": "pnpm dlx @tailwindcss/cli -i ./public/stylesheets/input.css -o ./public/stylesheets/output.css --minify"
 	},
 	"dependencies": {
 		"@tailwindcss/cli": "^4.1.17",
