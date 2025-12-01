@@ -13,9 +13,27 @@
     <main class="container mx-auto px-4 space-y-6 mt-12 pb-12">
       <h2 class="font-bold text-3xl">Clubhouse Feed</h2>
 
+      <% if (locals.currentUser && !currentUser?.is_member) { %>
+        <div
+          class="card flex flex-col sm:flex-row sm:items-center gap-5 border-2 border-dark rounded-xl"
+        >
+          <div class="space-y-1 flex-1">
+            <h3 class="text-lg font-bold">You're viewing as a guest</h3>
+            <p>Join to see author details and message dates.</p>
+          </div>
+
+          <a
+            class="bg-cta shrink-0 text-center"
+            href="/join"
+          >
+            Join the Club
+          </a>
+        </div>
+      <% } %>
+
       <div>
         <% if (messages.length > 0) { %>
-          <ul class="border-2 border-dark rounded-lg">
+          <ul class="border-2 border-dark rounded-xl">
             <% messages.forEach((message, index) => { %>
               <%-
                 include("messages/message",

@@ -6,7 +6,7 @@
     <h1 class="hidden sm:block font-bold text-xl">The Clubhouse</h1>
   </a>
 
-  <div class="flex gap-4 items-center">
+  <div class="flex gap-2 sm:gap-4 items-center">
     <% if (currentUser?.is_member) { %>
       <p class="text-gray">Member</p>
     <% } else if (currentUser && currentPath !== "/join") { %>
@@ -30,7 +30,7 @@
       >
     <% } else { %>
       <a
-        class="flex gap-2"
+        class="flex gap-2 px-4"
         href="/log-out"
         >
           <%- logoutIcon %>
