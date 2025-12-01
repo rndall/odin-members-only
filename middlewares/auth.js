@@ -54,9 +54,28 @@ function guestOnly(req, res, next) {
 }
 
 function nonMembersOnly(req, res, next) {
-	return req.isAuthenticated() && req.user.is_member
+	return req.isAuthenticated() && req.user?.is_member
 		? res.redirect("/")
 		: next()
 }
 
-export { validateSignUp, validateLogin, requireAuth, guestOnly, nonMembersOnly }
+function adminOnly(req, _res, next) {
+	if (req.isAuthenticated() && req.user?.is_admin) {
+		return next()
+	}
+
+	const error = new Error(
+		"Forbidden: You do not have permission to access this resource",
+	)
+	error.status = 403
+	next(error)
+}
+
+export {
+	validateSignUp,
+	validateLogin,
+	requireAuth,
+	guestOnly,
+	nonMembersOnly,
+	adminOnly,
+}

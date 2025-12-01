@@ -1,5 +1,5 @@
 import { body } from "express-validator"
-import { EyeOff } from "lucide-static"
+import { EyeOff, LogOut, Trash2 } from "lucide-static"
 import { lengthErr } from "../utils/errors.js"
 
 const validateMessage = [
@@ -26,4 +26,20 @@ function setFormIcon(_req, res, next) {
 	next()
 }
 
-export { validateMessage, validateSecretPasscode, setFormIcon }
+function setTrashIcon(_req, res, next) {
+	res.locals.trashIcon = Trash2
+	next()
+}
+
+function setLogoutIcon(_req, res, next) {
+	res.locals.logoutIcon = LogOut
+	next()
+}
+
+export {
+	validateMessage,
+	validateSecretPasscode,
+	setFormIcon,
+	setTrashIcon,
+	setLogoutIcon,
+}

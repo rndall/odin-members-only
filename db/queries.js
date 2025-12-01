@@ -56,6 +56,10 @@ async function setMember(userId) {
 	await pool.query('UPDATE "user" SET is_member = true WHERE id = $1', [userId])
 }
 
+async function deleteMessage(messageId) {
+	await pool.query("DELETE FROM message WHERE id = $1", [messageId])
+}
+
 export default {
 	insertUser,
 	getUserById,
@@ -63,4 +67,5 @@ export default {
 	getAllMessages,
 	insertMessage,
 	setMember,
+	deleteMessage,
 }

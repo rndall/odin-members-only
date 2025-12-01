@@ -7,6 +7,16 @@
   </a>
 
   <div class="flex gap-4 items-center">
+    <% if (currentUser?.is_member) { %>
+      <p class="text-gray">Member</p>
+    <% } else if (currentUser && currentPath !== "/join") { %>
+      <a
+        class="bg-cta"
+        href="/join"
+        >Join the Club</a
+      >
+    <% } %>
+
     <% if (!locals.currentUser) { %>
       <a
         class="bg-dark"
@@ -18,13 +28,14 @@
         href="/sign-up"
         >Sign Up</a
       >
-    <% } else if (currentUser.is_member) { %>
-      <p class="text-gray">Member</p>
-    <% } else if (currentPath !== "/join") { %>
+    <% } else { %>
       <a
-        class="bg-cta"
-        href="/join"
-        >Join the Club</a
+        class="flex gap-2"
+        href="/log-out"
+        >
+          <%- logoutIcon %>
+          Logout
+        </a
       >
     <% } %>
   </div>

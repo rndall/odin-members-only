@@ -89,4 +89,26 @@ const postJoin = [
 	},
 ]
 
-export { getIndex, createMessageGet, createMessagePost, getJoin, postJoin }
+async function deleteMessage(req, res, next) {
+	const { id } = req.params
+
+	if (!id) {
+		throw new CustomNotFoundError("Message ID not found!")
+	}
+
+	try {
+		await db.deleteMessage(Number(id))
+		res.redirect("/")
+	} catch (err) {
+		next(err)
+	}
+}
+
+export {
+	getIndex,
+	createMessageGet,
+	createMessagePost,
+	getJoin,
+	postJoin,
+	deleteMessage,
+}

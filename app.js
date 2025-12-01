@@ -9,11 +9,14 @@ import cookieParser from "cookie-parser"
 import express, { json, static as static_, urlencoded } from "express"
 import createError from "http-errors"
 import { MessageCircle } from "lucide-static"
+import methodOverride from "method-override"
 import logger from "morgan"
 import passport from "passport"
 
 import { configurePassport } from "./config/passport-config.js"
 import { sessionMiddleware } from "./config/session.js"
+
+import { setLogoutIcon } from "./middlewares/index.js"
 
 import authRouter from "./routes/auth.js"
 import indexRouter from "./routes/index.js"
@@ -31,6 +34,8 @@ app.use(urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(static_(join(__dirname, "public")))
 
+app.use(methodOverride("_method"))
+
 app.use(sessionMiddleware)
 
 configurePassport()
@@ -46,6 +51,8 @@ app.use((req, res, next) => {
 	res.locals.icon = icon
 	next()
 })
+
+app.use(setLogoutIcon)
 
 app.use("/", indexRouter)
 app.use("/", authRouter)
